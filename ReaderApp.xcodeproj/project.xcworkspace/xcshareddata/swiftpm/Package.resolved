@@ -1,0 +1,24 @@
+{
+  "originHash" : "31031d7d71f7e69302c5100427cfdf995ea57db4fdb984aa2a3250bc7c468b7d",
+  "pins" : [
+    {
+      "identity" : "ao3parser",
+      "kind" : "remoteSourceControl",
+      "location" : "git@github.com:redishot2/AO3Parser.git",
+      "state" : {
+        "branch" : "main",
+        "revision" : "d8b6311d4263b4936cc069b396a8038bb86e4de5"
+      }
+    },
+    {
+      "identity" : "swiftsoup",
+      "kind" : "remoteSourceControl",
+      "location" : "git@github.com:scinfu/SwiftSoup.git",
+      "state" : {
+        "revision" : "64e4daa41b0f22affa94a6063d509c137c26909c",
+        "version" : "2.8.5"
+      }
+    }
+  ],
+  "version" : 3
+}
