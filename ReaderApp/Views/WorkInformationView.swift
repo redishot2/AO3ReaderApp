@@ -26,17 +26,19 @@ struct WorkInformationView: View {
                 .clipped()
                 .blur(radius: 10)
             
-            ScrollView {
-                VStack {
-                    coverImage()
+            ZStack(alignment: .bottom) {
+                ScrollView {
+                    VStack {
+                        coverImage()
                         
-                    VStack(alignment: .leading) {
-                        aboutView()
-                        
-                        storyInfoView()
+                        VStack(alignment: .leading) {
+                            aboutView()
+                            
+                            storyInfoView()
+                        }
+                        .padding(EdgeInsets(top: 20, leading: 30, bottom: 0, trailing: 30))
+                        .background(.systemWhite)
                     }
-                    .padding(EdgeInsets(top: 20, leading: 30, bottom: 0, trailing: 30))
-                    .background(.systemWhite)
                 }
             }
         }
@@ -89,31 +91,6 @@ struct WorkInformationView: View {
             
             work.aboutInfo?.summary.convertToView()
                 .multilineTextAlignment(.leading)
-        }
-    }
-    
-    func storyInfoView() -> some View {
-        VStack(alignment: .leading) {
-            if let storyInfo = work.storyInfo {
-                Divider()
-                    .padding(EdgeInsets(top: 20, leading: 0, bottom: 20, trailing: 0))
-                
-                tagsView(storyInfo)
-                
-                Divider()
-                    .padding(EdgeInsets(top: 20, leading: 0, bottom: 20, trailing: 0))
-                
-                statsView(storyInfo.stats)
-                
-                Divider()
-                    .padding(EdgeInsets(top: 20, leading: 0, bottom: 20, trailing: 0))
-                
-                ExpandableLinkView(links: storyInfo.fandoms, groupTitle: "Fandoms")
-                ExpandableLinkView(links: storyInfo.characters, groupTitle: "Characters")
-                ExpandableLinkView(links: storyInfo.tags, groupTitle: "Tags")
-            }
-            
-            Spacer(minLength: 150)
         }
     }
     
@@ -179,13 +156,34 @@ struct WorkInformationView: View {
                 .background(.set1PinkDark)
                 .cornerRadius(5)
             
-            Text(statValue)
+            Text(statValue + " " + statName)
                 .minimumScaleFactor(0.01)
                 .foregroundStyle(.set1PinkDark)
+        }
+    }
+    
+    func storyInfoView() -> some View {
+        VStack(alignment: .leading) {
+            if let storyInfo = work.storyInfo {
+                Divider()
+                    .padding(EdgeInsets(top: 20, leading: 0, bottom: 20, trailing: 0))
+                
+                tagsView(storyInfo)
+                
+                Divider()
+                    .padding(EdgeInsets(top: 20, leading: 0, bottom: 20, trailing: 0))
+                
+                statsView(storyInfo.stats)
+                
+                Divider()
+                    .padding(EdgeInsets(top: 20, leading: 0, bottom: 20, trailing: 0))
+                
+                ExpandableLinkView(links: storyInfo.fandoms, groupTitle: "Fandoms")
+                ExpandableLinkView(links: storyInfo.characters, groupTitle: "Characters")
+                ExpandableLinkView(links: storyInfo.tags, groupTitle: "Tags")
+            }
             
-            Text(statName)
-                .minimumScaleFactor(0.01)
-                .foregroundStyle(.set1PinkDark)
+            Spacer(minLength: 150)
         }
     }
 }

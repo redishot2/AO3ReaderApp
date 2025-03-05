@@ -11,7 +11,7 @@ import SwiftUI
 struct ExpandableLinkView: View {
     let links: [LinkInfo]
     let groupTitle: String
-    let smallerDisplay = 10
+    let smallerDisplay = 6
     
     var displayLinks: [LinkInfo] {
         if links.count > smallerDisplay && !isExpanded {
@@ -26,7 +26,9 @@ struct ExpandableLinkView: View {
     var body: some View {
         VStack(alignment: .leading) {
             Text(groupTitle)
-                .font(.headline)
+                .font(.title3)
+                .foregroundStyle(.set1PinkDark)
+                .padding(EdgeInsets(top: 0, leading: 0, bottom: 5, trailing: 0))
             
             ForEach(displayLinks) { link in
                 NavigationLink {
