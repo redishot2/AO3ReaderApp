@@ -9,7 +9,7 @@ import SwiftUI
 import AO3Scraper
 
 struct WorkInformationView: View {
-    @State var work: Work
+    @State var feedCardInfo: FeedCardInfo
     
     enum Constants {
         static let imageWidth: CGFloat = 200
@@ -35,6 +35,8 @@ struct WorkInformationView: View {
                             aboutView()
                             
                             storyInfoView()
+                            
+                            Spacer(minLength: 150)
                         }
                         .padding(EdgeInsets(top: 20, leading: 30, bottom: 0, trailing: 30))
                         .background(.systemWhite)
@@ -48,30 +50,16 @@ struct WorkInformationView: View {
     
     func coverImage() -> some View {
         VStack {
-            if let url = work.currentChapter?.firstImage {
-                CacheAsyncImage(url: url) { state in
-                    if let image = state.image {
-                        image
-                            .resizable()
-                            .frame(width: Constants.imageWidth, height: Constants.imageHeight)
-                            .aspectRatio(contentMode: .fill)
-                            .clipped()
-                            .clipShape(RoundedRectangle(cornerRadius: 10))
-                            .padding(EdgeInsets(top: 100, leading: 0, bottom: 0, trailing: 0))
-                    }
-                }
-            } else {
-                CoverImageGeneratorView(title: work.aboutInfo?.title ?? "", author: work.aboutInfo?.author.name ?? "")
-                    .frame(width: Constants.imageWidth, height: Constants.noImageHight)
-                    .clipShape(RoundedRectangle(cornerRadius: 10))
-                    .padding(EdgeInsets(top: 100, leading: 0, bottom: 0, trailing: 0))
-            }
+            CoverImageGeneratorView(title: feedCardInfo.title ?? "", author: feedCardInfo.author)
+                .frame(width: Constants.imageWidth, height: Constants.noImageHight)
+                .clipShape(RoundedRectangle(cornerRadius: 10))
+                .padding(EdgeInsets(top: 100, leading: 0, bottom: 0, trailing: 0))
         }
     }
     
     func aboutView() -> some View {
         VStack(alignment: .leading) {
-            if let workTitle = work.aboutInfo?.title {
+            if let workTitle = feedCardInfo.title {
                 Text("\(workTitle)")
                     .font(.title2)
                     .bold()
@@ -79,35 +67,31 @@ struct WorkInformationView: View {
                     .padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0))
             }
             
-            if let author = work.aboutInfo?.author.name {
-                Text("by: \(author)")
-                    .font(.caption)
-                    .foregroundStyle(.gray)
-                    .padding(EdgeInsets(top: 10, leading: 0, bottom: 5, trailing: 0))
-            }
+            Text("by: \(feedCardInfo.author)")
+                .font(.caption)
+                .foregroundStyle(.gray)
+                .padding(EdgeInsets(top: 10, leading: 0, bottom: 5, trailing: 0))
             
             Divider()
                 .padding(EdgeInsets(top: 20, leading: 0, bottom: 20, trailing: 0))
             
-            work.aboutInfo?.summary.convertToView()
+            feedCardInfo.summary?.convertToView()
                 .multilineTextAlignment(.leading)
         }
     }
     
-    func tagsView(_ storyInfo: StoryInfo) -> some View {
+    func tagsView() -> some View {
         VStack(alignment: .leading) {
-            tagView(storyInfo.rating)
+            tagView(feedCardInfo.rating ?? .notRated)
             
-            ForEach(storyInfo.warnings, id: \.self) { warning in
+            ForEach(feedCardInfo.tags.warnings, id: \.self) { warning in
                 tagView(warning)
             }
             
-            ForEach(storyInfo.categories, id: \.self) { category in
-                tagView(category)
-            }
+            tagView(feedCardInfo.tags.category ?? .other)
             
-            if let completedDate = storyInfo.stats.completed {
-                statView(statName: "", statValue: "Completed \(completedDate.formatted(date: .abbreviated, time: .omitted))", statIcon: "checkmark")
+            if feedCardInfo.stats.completed ?? false {
+                statView(statName: "", statValue: "Completed", statIcon: "checkmark")
             } else {
                 tagView(StoryInfo.CompletionStatus.inProgress)
             }
@@ -129,19 +113,19 @@ struct WorkInformationView: View {
         }
     }
     
-    func statsView(_ stats: StoryInfo.Stats) -> some View {
+    func statsView(_ stats: FeedCardInfo.Stats) -> some View {
         VStack(alignment: .leading) {
-            statView(statName: "Chapters", statValue: stats.chapters, statIcon: "book.pages")
+            statView(statName: "Chapters", statValue: stats.chapters?.name ?? "?/?", statIcon: "book.pages")
             
-            statView(statName: "Words", statValue: stats.words.displayString(), statIcon: "pencil.and.scribble")
+            statView(statName: "Words", statValue: stats.words ?? "0", statIcon: "pencil.and.scribble")
             
-            statView(statName: "Comments", statValue: stats.comments.displayString(), statIcon: "quote.bubble")
+            statView(statName: "Comments", statValue: stats.comments?.name ?? "0", statIcon: "quote.bubble")
 
-            statView(statName: "Bookmarks", statValue: stats.bookmarks.displayString(), statIcon: "bookmark.circle")
+            statView(statName: "Bookmarks", statValue: stats.bookmarks ?? "0", statIcon: "bookmark.circle")
             
-            statView(statName: "Hits", statValue: stats.hits.displayString(), statIcon: "eyeglasses")
+            statView(statName: "Hits", statValue: stats.hits ?? "0", statIcon: "eyeglasses")
             
-            statView(statName: "Kudos", statValue: stats.kudos.displayString(), statIcon: "heart.circle")
+            statView(statName: "Kudos", statValue: stats.kudos ?? "0", statIcon: "heart.circle")
         }
     }
     
@@ -164,26 +148,22 @@ struct WorkInformationView: View {
     
     func storyInfoView() -> some View {
         VStack(alignment: .leading) {
-            if let storyInfo = work.storyInfo {
-                Divider()
-                    .padding(EdgeInsets(top: 20, leading: 0, bottom: 20, trailing: 0))
-                
-                tagsView(storyInfo)
-                
-                Divider()
-                    .padding(EdgeInsets(top: 20, leading: 0, bottom: 20, trailing: 0))
-                
-                statsView(storyInfo.stats)
-                
-                Divider()
-                    .padding(EdgeInsets(top: 20, leading: 0, bottom: 20, trailing: 0))
-                
-                ExpandableLinkView(links: storyInfo.fandoms, groupTitle: "Fandoms")
-                ExpandableLinkView(links: storyInfo.characters, groupTitle: "Characters")
-                ExpandableLinkView(links: storyInfo.tags, groupTitle: "Tags")
-            }
+            Divider()
+                .padding(EdgeInsets(top: 20, leading: 0, bottom: 20, trailing: 0))
             
-            Spacer(minLength: 150)
+            tagsView()
+            
+            Divider()
+                .padding(EdgeInsets(top: 20, leading: 0, bottom: 20, trailing: 0))
+            
+            statsView(feedCardInfo.stats)
+            
+            Divider()
+                .padding(EdgeInsets(top: 20, leading: 0, bottom: 20, trailing: 0))
+            
+            ExpandableLinkView(links: feedCardInfo.tags.fandoms, groupTitle: "Fandoms")
+            ExpandableLinkView(links: feedCardInfo.tags.characters, groupTitle: "Characters")
+            ExpandableLinkView(links: feedCardInfo.tags.tags, groupTitle: "Tags")
         }
     }
 }
