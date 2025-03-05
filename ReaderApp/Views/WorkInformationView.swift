@@ -80,6 +80,27 @@ struct WorkInformationView: View {
         }
     }
     
+    func storyInfoView() -> some View {
+        VStack(alignment: .leading) {
+            Divider()
+                .padding(EdgeInsets(top: 20, leading: 0, bottom: 20, trailing: 0))
+            
+            tagsView()
+            
+            Divider()
+                .padding(EdgeInsets(top: 20, leading: 0, bottom: 20, trailing: 0))
+            
+            statsView(feedCardInfo.stats)
+            
+            Divider()
+                .padding(EdgeInsets(top: 20, leading: 0, bottom: 20, trailing: 0))
+            
+            ExpandableLinkView(links: feedCardInfo.tags.fandoms, groupTitle: "Fandoms")
+            ExpandableLinkView(links: feedCardInfo.tags.characters, groupTitle: "Characters")
+            ExpandableLinkView(links: feedCardInfo.tags.tags, groupTitle: "Tags")
+        }
+    }
+    
     func tagsView() -> some View {
         VStack(alignment: .leading) {
             tagView(feedCardInfo.rating ?? .notRated)
@@ -143,27 +164,6 @@ struct WorkInformationView: View {
             Text(statValue + " " + statName)
                 .minimumScaleFactor(0.01)
                 .foregroundStyle(.set1PinkDark)
-        }
-    }
-    
-    func storyInfoView() -> some View {
-        VStack(alignment: .leading) {
-            Divider()
-                .padding(EdgeInsets(top: 20, leading: 0, bottom: 20, trailing: 0))
-            
-            tagsView()
-            
-            Divider()
-                .padding(EdgeInsets(top: 20, leading: 0, bottom: 20, trailing: 0))
-            
-            statsView(feedCardInfo.stats)
-            
-            Divider()
-                .padding(EdgeInsets(top: 20, leading: 0, bottom: 20, trailing: 0))
-            
-            ExpandableLinkView(links: feedCardInfo.tags.fandoms, groupTitle: "Fandoms")
-            ExpandableLinkView(links: feedCardInfo.tags.characters, groupTitle: "Characters")
-            ExpandableLinkView(links: feedCardInfo.tags.tags, groupTitle: "Tags")
         }
     }
 }
