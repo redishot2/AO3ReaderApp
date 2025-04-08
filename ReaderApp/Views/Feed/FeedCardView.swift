@@ -1,42 +1,17 @@
 //
-//  FeedView.swift
+//  FeedCardView.swift
 //  ReaderApp
 //
-//  Created by Natasha Martinez on 3/3/25.
+//  Created by Natasha Martinez on 4/8/25.
 //
 
 import AO3Scraper
 import SwiftUI
 
-struct FeedView: View {
-    let title: String
-    let networking = FeedNetworking()
-    
-    @State var feedInfo: FeedInfo? = nil
+struct FeedCardView: View {
+    let feedCardInfo: FeedCardInfo
     
     var body: some View {
-        ScrollView {
-            if let feedInfo = feedInfo {
-                ForEach(feedInfo.feedInfo, id: \.self) { feedCardInfo in
-                    NavigationLink {
-                        WorkInformationView(feedCardInfo: feedCardInfo)
-                    } label: {
-                        feedCardInfoView(feedCardInfo)
-                            .padding()
-                    }
-                    .buttonStyle(.plain)
-                }
-            } else {
-                Text("Loading...")
-            }
-        }
-        .background(Color.set1PinkDark)
-        .task {
-            feedInfo = await networking.fetchRelatedWorks(title, page: 0)
-        }
-    }
-    
-    func feedCardInfoView(_ feedCardInfo: FeedCardInfo) -> some View {
         VStack(alignment: .leading) {
             Text(feedCardInfo.title ?? "")
                 .font(.title3)
