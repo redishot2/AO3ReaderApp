@@ -9,11 +9,11 @@ import AO3Scraper
 import SwiftUI
 
 struct ExpandableLinkView: View {
-    let links: [LinkInfo]
+    let links: [String]
     let groupTitle: String
     let smallerDisplay = 6
     
-    var displayLinks: [LinkInfo] {
+    var displayLinks: [String] {
         if links.count > smallerDisplay && !isExpanded {
             return Array(links[0..<smallerDisplay])
         } else {
@@ -30,11 +30,11 @@ struct ExpandableLinkView: View {
                 .foregroundStyle(.set1PinkDark)
                 .padding(EdgeInsets(top: 0, leading: 0, bottom: 5, trailing: 0))
             
-            ForEach(displayLinks) { link in
+            ForEach(displayLinks, id: \.self) { link in
                 NavigationLink {
-                    FeedView(title: link.name)
+                    FeedView(title: link)
                 } label: {
-                    Text(link.name)
+                    Text(link)
                         .multilineTextAlignment(.leading)
                         .foregroundStyle(.systemBlack)
                         .underline()

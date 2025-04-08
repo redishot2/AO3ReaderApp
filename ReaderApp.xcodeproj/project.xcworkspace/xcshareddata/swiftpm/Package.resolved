@@ -7,7 +7,7 @@
       "location" : "git@github.com:redishot2/AO3Parser.git",
       "state" : {
         "branch" : "main",
-        "revision" : "99dfe48e56a5d4625c159ff40cdb10b46778bef4"
+        "revision" : "830e797d2a8dacb4b2ba3c9c9c3a119c11b4f24f"
       }
     },
     {
@@ -15,8 +15,8 @@
       "kind" : "remoteSourceControl",
       "location" : "git@github.com:scinfu/SwiftSoup.git",
       "state" : {
-        "revision" : "64e4daa41b0f22affa94a6063d509c137c26909c",
-        "version" : "2.8.5"
+        "revision" : "bba848db50462894e7fc0891d018dfecad4ef11e",
+        "version" : "2.8.7"
       }
     }
   ],

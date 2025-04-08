@@ -72,11 +72,12 @@ struct WorkInformationView: View {
                 .foregroundStyle(.gray)
                 .padding(EdgeInsets(top: 10, leading: 0, bottom: 5, trailing: 0))
             
-            Divider()
-                .padding(EdgeInsets(top: 20, leading: 0, bottom: 20, trailing: 0))
-            
-            feedCardInfo.summary?.convertToView()
-                .multilineTextAlignment(.leading)
+            if let summary = feedCardInfo.summary {
+                Divider()
+                    .padding(EdgeInsets(top: 20, leading: 0, bottom: 20, trailing: 0))
+                
+                summary.convertToView()
+            }
         }
     }
     
@@ -111,7 +112,7 @@ struct WorkInformationView: View {
             
             tagView(feedCardInfo.tags.category ?? .other)
             
-            if feedCardInfo.stats.completed ?? false {
+            if feedCardInfo.stats.completed {
                 statView(statName: "", statValue: "Completed", statIcon: "checkmark")
             } else {
                 tagView(StoryInfo.CompletionStatus.inProgress)
@@ -131,16 +132,17 @@ struct WorkInformationView: View {
             
             Text(tag.fullText)
                 .foregroundStyle(.set1PinkDark)
+                .multilineTextAlignment(.leading)
         }
     }
     
     func statsView(_ stats: FeedCardInfo.Stats) -> some View {
         VStack(alignment: .leading) {
-            statView(statName: "Chapters", statValue: stats.chapters?.name ?? "?/?", statIcon: "book.pages")
+            statView(statName: "Chapters", statValue: stats.chapters ?? "?/?", statIcon: "book.pages")
             
             statView(statName: "Words", statValue: stats.words ?? "0", statIcon: "pencil.and.scribble")
             
-            statView(statName: "Comments", statValue: stats.comments?.name ?? "0", statIcon: "quote.bubble")
+            statView(statName: "Comments", statValue: stats.comments ?? "0", statIcon: "quote.bubble")
 
             statView(statName: "Bookmarks", statValue: stats.bookmarks ?? "0", statIcon: "bookmark.circle")
             
