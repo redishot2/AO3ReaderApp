@@ -9,7 +9,7 @@ import AO3Scraper
 import SwiftUI
 
 @MainActor class FeedViewModel: ObservableObject {
-    let networking = FeedNetworking()
+    private let networking = FeedNetworking()
     private(set) var curFeedPage = 0
     
     private var tasks: [Task<Void, Never>] = []

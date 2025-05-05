@@ -42,6 +42,9 @@ struct WorkInformationView: View {
                         .background(.systemWhite)
                     }
                 }
+                
+                BeginReadingButton(workID: feedCardInfo.workID)
+                    .padding(EdgeInsets(top: 0, leading: 0, bottom: 20, trailing: 0))
             }
         }
         .frame(maxWidth: .infinity)
