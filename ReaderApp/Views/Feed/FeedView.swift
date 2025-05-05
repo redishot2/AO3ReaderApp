@@ -10,29 +10,47 @@ import SwiftUI
 
 struct FeedView: View {
     let title: String
-    let networking = FeedNetworking()
     
-    @State var feedInfo: FeedInfo? = nil
+    @StateObject var feedViewModel = FeedViewModel()
     
     var body: some View {
         ScrollView {
-            if let feedInfo = feedInfo {
-                ForEach(feedInfo.feedInfo, id: \.self) { feedCardInfo in
+            LazyVStack {
+                ForEach(feedViewModel.feedInfo?.feedInfo ?? [], id: \.self) { feedCardInfo in
                     NavigationLink {
                         WorkInformationView(feedCardInfo: feedCardInfo)
                     } label: {
                         FeedCardView(feedCardInfo: feedCardInfo)
                             .padding()
+                            .onAppear {
+                                if feedCardInfo == feedViewModel.feedInfo?.feedInfo.last {
+                                    feedViewModel.fetchNextPage(for: title)
+                                }
+                            }
                     }
                     .buttonStyle(.plain)
                 }
-            } else {
-                Text("Loading...")
+            }
+            
+            if feedViewModel.isLoading {
+                ProgressView()
+                    .padding(EdgeInsets(top: 50, leading: 0, bottom: 0, trailing: 0))
+                    .tint(.systemWhite)
+            } else if feedViewModel.displayError {
+                Text("There was a problem fetching the feed. Please try again later.")
+            } else if feedViewModel.hasScrolledToEnd {
+                Image(systemName: "fireworks")
+                    .padding(100)
+                    .foregroundStyle(.systemWhite)
             }
         }
-        .background(Color.set1PinkDark)
+        .frame(maxWidth: .infinity, alignment: .center)
+        .background(.set1PinkDark)
         .task {
-            feedInfo = await networking.fetchRelatedWorks(title, page: 0)
+            feedViewModel.fetchFeedInfo(for: title)
+        }
+        .onDisappear {
+            feedViewModel.cancelTasks()
         }
     }
 }

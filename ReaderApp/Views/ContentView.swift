@@ -12,7 +12,7 @@ struct ContentView: View {
     var body: some View {
         NavigationStack {
             VStack {
-                FeedView(title: "Harry Potter - J. K. Rowling")
+                FeedView(title: "+Anima (Manga)")
             }
         }
     }
