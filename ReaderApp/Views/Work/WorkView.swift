@@ -18,7 +18,7 @@ struct WorkView: View {
                     .tint(.systemWhite)
             } else if workViewModel.displayError {
                 Text("There was a problem fetching this Work. Please try again later.")
-            } else if let chapter = workViewModel.curChapterInfo {
+            } else if let chapter = workViewModel.curChapter() {
                 ChapterView(chapter: chapter)
                     .padding(EdgeInsets(top: 0, leading: 10, bottom: 50, trailing: 10))
             }
@@ -31,6 +31,27 @@ struct WorkView: View {
         .onDisappear {
             workViewModel.cancelTasks()
         }
+        .toolbar {
+            createChapterListButton()
+        }
+    }
+    
+    func createChapterListButton() -> some View {
+        Menu(
+            content: {
+                let chapters = workViewModel.work?.chapterList?.chapterNames ?? []
+                ForEach(Array(chapters.enumerated()), id: \.offset) { index, chapterName in
+                    Button {
+                        workViewModel.fetch(chapterIndex: index + 1)
+                    } label: {
+                        Text(chapterName)
+                            .minimumScaleFactor(0.01)
+                    }
+                }
+            }, label: {
+                Image(systemName: "list.bullet")
+            }
+        )
     }
 }
 

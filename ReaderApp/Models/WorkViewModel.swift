@@ -10,12 +10,8 @@ import SwiftUI
 
 @MainActor class WorkViewModel: ObservableObject {
     let networking = ChapterNetworking()
-    private(set) var curChapter: Int
+    private(set) var curChapterIndex: Int
     private var workID: String
-    
-    var curChapterInfo: Chapter? {
-        work?.chapters[curChapter]
-    }
     
     private var tasks: [Task<Void, Never>] = []
     
@@ -25,14 +21,17 @@ import SwiftUI
     
     public init(workID: String, curChapter: Int) {
         self.workID = workID
-        self.curChapter = curChapter
+        self.curChapterIndex = curChapter
     }
     
-    func fetch() {
+    /// Fetches chapter for provided work
+    /// - Parameter chapterIndex: starts counting at 1
+    func fetch(chapterIndex: Int? = nil) {
         isLoading = true
+        curChapterIndex = chapterIndex ?? curChapterIndex
         
         let task = Task {
-            if let newWork = await networking.fetch(work: workID, at: curChapter) {
+            if let newWork = await networking.fetch(work: workID, at: curChapterIndex) {
                 work = newWork
             } else {
                 displayError = true
@@ -44,8 +43,12 @@ import SwiftUI
     
     func fetchNextChapter() {
         cancelTasks()
-        curChapter = curChapter + 1
+        curChapterIndex = curChapterIndex + 1
         fetch()
+    }
+    
+    func curChapter() -> Chapter? {
+        work?.chapters[curChapterIndex]
     }
     
     func cancelTasks() {
