@@ -32,7 +32,9 @@ struct WorkView: View {
             workViewModel.cancelTasks()
         }
         .toolbar {
-            createChapterListButton()
+            if let chapterList = workViewModel.work?.chapterList, chapterList.chapterNames.count > 1 {
+                createChapterListButton()
+            }
         }
     }
     
