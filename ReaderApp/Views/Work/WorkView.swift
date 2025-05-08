@@ -69,7 +69,15 @@ struct WorkView: View {
         HStack {
             if workViewModel.hasPreviousChapter {
                 // Previous chapter
-                chapterButton(text: "Previous Chapter")
+                Text("Previous Chapter")
+                    .foregroundStyle(.set1Pink)
+                    .bold()
+                    .font(.title3)
+                    .padding(EdgeInsets(top: 2, leading: 20, bottom: 2, trailing: 20))
+                    .background(
+                        RoundedRectangle(cornerRadius: 5)
+                            .foregroundStyle(.set1PinkDark)
+                    )
                     .onTapGesture {
                         workViewModel.fetchPreviousChapter()
                     }
@@ -79,26 +87,21 @@ struct WorkView: View {
             
             if workViewModel.hasNextChapter {
                 // Next chapter
-                chapterButton(text: "Next Chapter")
+                Text("Next Chapter")
+                    .foregroundStyle(.systemWhite)
+                    .bold()
+                    .font(.title3)
+                    .padding(EdgeInsets(top: 2, leading: 20, bottom: 2, trailing: 20))
+                    .background(
+                        RoundedRectangle(cornerRadius: 5)
+                            .foregroundStyle(.set1Pink)
+                    )
                     .onTapGesture {
                         workViewModel.fetchNextChapter()
                     }
             }
         }
         .padding(EdgeInsets(top: 0, leading: 10, bottom: 0, trailing: 10))
-    }
-    
-    func chapterButton(text: String) -> some View {
-        Text(text)
-            .foregroundStyle(.set1PinkDark)
-            .bold()
-            .font(.title3)
-            .padding(EdgeInsets(top: 2, leading: 20, bottom: 2, trailing: 20))
-            .background(
-                RoundedRectangle(cornerRadius: 20)
-                    .stroke(Color.primary, lineWidth: 1)
-                    .foregroundStyle(.systemWhite)
-            )
     }
 }
 
