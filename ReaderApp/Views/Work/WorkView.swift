@@ -15,12 +15,20 @@ struct WorkView: View {
             if workViewModel.isLoading {
                 ProgressView()
                     .padding(EdgeInsets(top: 50, leading: 0, bottom: 0, trailing: 0))
-                    .tint(.systemWhite)
+                    .tint(.set1PinkDark)
             } else if workViewModel.displayError {
                 Text("There was a problem fetching this Work. Please try again later.")
             } else if let chapter = workViewModel.curChapter() {
+                chapterMovementButtons()
+                
                 ChapterView(chapter: chapter)
                     .padding(EdgeInsets(top: 0, leading: 10, bottom: 50, trailing: 10))
+                
+                chapterMovementButtons()
+                
+                Rectangle()
+                    .frame(width: 1, height: 200)
+                    .foregroundStyle(.systemWhite)
             }
         }
         .frame(maxWidth: .infinity, alignment: .center)
@@ -54,6 +62,26 @@ struct WorkView: View {
                 Image(systemName: "list.bullet")
             }
         )
+    }
+    
+    func chapterMovementButtons() -> some View {
+        HStack {
+            if workViewModel.hasPreviousChapter {
+                // Previous chapter
+                CustomButton(text: "Previous Chapter")
+                    .onTapGesture {
+                        workViewModel.fetchPreviousChapter()
+                    }
+            }
+            
+            if workViewModel.hasNextChapter {
+                // Next chapter
+                CustomButton(text: "Next Chapter")
+                    .onTapGesture {
+                        workViewModel.fetchNextChapter()
+                    }
+            }
+        }
     }
 }
 

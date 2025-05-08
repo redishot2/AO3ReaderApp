@@ -15,12 +15,7 @@ struct BeginReadingButton: View {
             WorkView()
                 .environmentObject(WorkViewModel(workID: workID, curChapter: 1))
         } label: {
-            Text("Read Now")
-                .foregroundStyle(.white)
-                .bold()
-                .font(.title3)
-                .padding(EdgeInsets(top: 10, leading: 20, bottom: 10, trailing: 20))
-                .background(RoundedRectangle(cornerRadius: 20).foregroundStyle(.set1PinkDark))
+            CustomButton(text: "Read Now")
                 
         }
     }

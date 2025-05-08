@@ -10,7 +10,11 @@ import SwiftUI
 
 @MainActor class WorkViewModel: ObservableObject {
     let networking = ChapterNetworking()
-    private(set) var curChapterIndex: Int
+    
+    /// Current chapter index; starts counting at 1
+    @Published private(set) var curChapterIndex: Int
+    
+    /// Unique ID for work
     private var workID: String
     
     private var tasks: [Task<Void, Never>] = []
@@ -18,6 +22,15 @@ import SwiftUI
     @Published var work: Work? = nil
     @Published var displayError: Bool = false
     @Published var isLoading: Bool = false
+    
+    public var hasPreviousChapter: Bool {
+        return curChapterIndex > 1
+    }
+    
+    public var hasNextChapter: Bool {
+        guard let chapters = work?.chapterList?.chapterIDs else { return false }
+        return curChapterIndex < chapters.count
+    }
     
     public init(workID: String, curChapter: Int) {
         self.workID = workID
@@ -39,6 +52,12 @@ import SwiftUI
             isLoading = false
         }
         tasks.append(task)
+    }
+    
+    func fetchPreviousChapter() {
+        cancelTasks()
+        curChapterIndex = curChapterIndex - 1
+        fetch()
     }
     
     func fetchNextChapter() {
