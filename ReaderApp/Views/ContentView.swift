@@ -15,6 +15,7 @@ struct ContentView: View {
                 FeedView(title: "+Anima (Manga)")
             }
         }
+        .accentColor(.set1PinkDark)
     }
 }
 

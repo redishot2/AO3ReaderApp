@@ -22,7 +22,7 @@ struct WorkView: View {
                 chapterMovementButtons()
                 
                 ChapterView(chapter: chapter)
-                    .padding(EdgeInsets(top: 0, leading: 10, bottom: 50, trailing: 10))
+                    .padding(EdgeInsets(top: 20, leading: 10, bottom: 50, trailing: 10))
                 
                 chapterMovementButtons()
                 
@@ -60,6 +60,7 @@ struct WorkView: View {
                 }
             }, label: {
                 Image(systemName: "list.bullet")
+                    .tint(.set1PinkDark)
             }
         )
     }
@@ -68,20 +69,36 @@ struct WorkView: View {
         HStack {
             if workViewModel.hasPreviousChapter {
                 // Previous chapter
-                CustomButton(text: "Previous Chapter")
+                chapterButton(text: "Previous Chapter")
                     .onTapGesture {
                         workViewModel.fetchPreviousChapter()
                     }
             }
             
+            Spacer()
+            
             if workViewModel.hasNextChapter {
                 // Next chapter
-                CustomButton(text: "Next Chapter")
+                chapterButton(text: "Next Chapter")
                     .onTapGesture {
                         workViewModel.fetchNextChapter()
                     }
             }
         }
+        .padding(EdgeInsets(top: 0, leading: 10, bottom: 0, trailing: 10))
+    }
+    
+    func chapterButton(text: String) -> some View {
+        Text(text)
+            .foregroundStyle(.set1PinkDark)
+            .bold()
+            .font(.title3)
+            .padding(EdgeInsets(top: 2, leading: 20, bottom: 2, trailing: 20))
+            .background(
+                RoundedRectangle(cornerRadius: 20)
+                    .stroke(Color.primary, lineWidth: 1)
+                    .foregroundStyle(.systemWhite)
+            )
     }
 }
 
