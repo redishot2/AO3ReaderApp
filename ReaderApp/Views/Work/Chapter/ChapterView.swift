@@ -15,13 +15,6 @@ struct ChapterView: View {
     
     var body: some View {
         VStack {
-            if let title = chapter.title {
-                Text(title)
-                    .font(.title2)
-                    .bold()
-                    .foregroundStyle(.set1PinkDark)
-            }
-            
             // Pre Notes
             if chapter.preNotes.count > 0 {
                 NotesView(notes: chapter.preNotes)

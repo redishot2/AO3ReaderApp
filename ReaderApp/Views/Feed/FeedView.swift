@@ -44,6 +44,7 @@ struct FeedView: View {
                     .foregroundStyle(.systemWhite)
             }
         }
+        .navigationTitle(title)
         .frame(maxWidth: .infinity, alignment: .center)
         .background(.set1PinkDark)
         .task {

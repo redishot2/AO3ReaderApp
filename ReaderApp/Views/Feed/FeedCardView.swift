@@ -19,7 +19,7 @@ struct FeedCardView: View {
                 .foregroundStyle(.systemBlack)
                 .padding(EdgeInsets(top: 5, leading: 0, bottom: 0, trailing: 0))
             
-            Text("By \(feedCardInfo.author)")
+            Text("By \(feedCardInfo.displayAuthors())")
                 .font(.subheadline)
                 .multilineTextAlignment(.leading)
                 .foregroundStyle(.gray)

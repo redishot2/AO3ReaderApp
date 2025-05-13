@@ -47,13 +47,14 @@ struct WorkInformationView: View {
                     .padding(EdgeInsets(top: 0, leading: 0, bottom: 20, trailing: 0))
             }
         }
+        .navigationTitle("")
         .frame(maxWidth: .infinity)
         .ignoresSafeArea()
     }
     
     func coverImage() -> some View {
         VStack {
-            CoverImageGeneratorView(title: feedCardInfo.title ?? "", author: feedCardInfo.author)
+            CoverImageGeneratorView(title: feedCardInfo.title ?? "", author: feedCardInfo.displayAuthors())
                 .frame(width: Constants.imageWidth, height: Constants.noImageHight)
                 .clipShape(RoundedRectangle(cornerRadius: 10))
                 .padding(EdgeInsets(top: 100, leading: 0, bottom: 0, trailing: 0))
@@ -70,10 +71,23 @@ struct WorkInformationView: View {
                     .padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0))
             }
             
-            Text("by: \(feedCardInfo.author)")
-                .font(.caption)
-                .foregroundStyle(.gray)
-                .padding(EdgeInsets(top: 10, leading: 0, bottom: 5, trailing: 0))
+            HStack {
+                Text("By ")
+                    .font(.caption)
+                    .foregroundStyle(.gray)
+                    .padding(EdgeInsets(top: 10, leading: 0, bottom: 5, trailing: 0))
+                
+                ForEach(feedCardInfo.authors, id: \.self) { author in
+                    NavigationLink {
+                        AuthorView(author: author)
+                    } label: {
+                        Text(author + (author == feedCardInfo.authors.last ? "" : ", "))
+                            .font(.caption)
+                            .foregroundStyle(.gray)
+                            .padding(EdgeInsets(top: 10, leading: 0, bottom: 5, trailing: 0))
+                    }
+                }
+            }
             
             if let summary = feedCardInfo.summary {
                 Divider()

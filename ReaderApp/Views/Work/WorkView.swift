@@ -19,8 +19,6 @@ struct WorkView: View {
             } else if workViewModel.displayError {
                 Text("There was a problem fetching this Work. Please try again later.")
             } else if let chapter = workViewModel.curChapter() {
-                chapterMovementButtons()
-                
                 ChapterView(chapter: chapter)
                     .padding(EdgeInsets(top: 20, leading: 10, bottom: 50, trailing: 10))
                 
@@ -33,6 +31,7 @@ struct WorkView: View {
         }
         .frame(maxWidth: .infinity, alignment: .center)
         .background(.systemWhite)
+        .navigationTitle(workViewModel.curChapter()?.title ?? "")
         .task {
             workViewModel.fetch()
         }

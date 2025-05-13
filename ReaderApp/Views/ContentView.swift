@@ -9,6 +9,8 @@ import SwiftUI
 import AO3Scraper
 
 struct ContentView: View {
+    @Environment(\.dismiss) var dismiss
+    
     var body: some View {
         NavigationStack {
             VStack {
@@ -16,6 +18,17 @@ struct ContentView: View {
             }
         }
         .accentColor(.set1PinkDark)
+        .navigationTitle("Home")
+        .navigationBarBackButtonHidden(true)
+        .toolbar {
+            ToolbarItem(placement: .topBarLeading) {
+                Button(action: {
+                    dismiss()
+                }) {
+                    Label("Back", systemImage: "arrow.left.circle")
+                }
+            }
+        }
     }
 }
 
