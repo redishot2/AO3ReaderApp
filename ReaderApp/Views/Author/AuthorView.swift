@@ -29,11 +29,17 @@ struct AuthorView: View {
             }.padding(EdgeInsets(top: 20, leading: 60, bottom: 10, trailing: 60))
             
             // User activity
-            VStack(spacing: 0) {
-                createWorkGroup(groupTitle: "Recent Works", works: authorViewModel.userInfo?.recentWorks)
-                createWorkGroup(groupTitle: "Recent Series", works: authorViewModel.userInfo?.recentSeries)
-                createWorkGroup(groupTitle: "Recent Bookmarks", works: authorViewModel.userInfo?.recentBookmarks)
-            }
+//            VStack(spacing: 0) {
+//                createWorkGroup(groupTitle: "Recent Works", works: authorViewModel.userInfo?.recentWorks)
+//                createWorkGroup(groupTitle: "Recent Series", works: authorViewModel.userInfo?.recentSeries)
+//                createWorkGroup(groupTitle: "Recent Bookmarks", works: authorViewModel.userInfo?.recentBookmarks)
+//            }
+            
+            TabSelector(items: [
+                TabItem(name: "Recent Works"),
+                TabItem(name: "Recent Series"),
+                TabItem(name: "Recent Bookmarks")
+            ])
             
             if authorViewModel.isLoading {
                 ProgressView()
@@ -61,12 +67,14 @@ struct AuthorView: View {
             Text(authorViewModel.userInfo?.profileInfo.username ?? "Profile")
                 .font(.title)
                 .minimumScaleFactor(0.01)
+                .foregroundStyle(.systemWhite)
             
             if let joinDate = authorViewModel.userInfo?.profileInfo.joinDate {
                 (Text("Joined")
                 + Text(" \(joinDate)"))
                     .font(.subheadline)
                     .minimumScaleFactor(0.01)
+                    .foregroundStyle(.systemWhite)
             }
             
             Rectangle()
@@ -83,18 +91,11 @@ struct AuthorView: View {
                 VStack {
                     
                     // Divider
-                    Rectangle()
-                        .fill(.set1PinkDark)
-                        .frame(height: 2)
-                    
-                    // Spacer
-                    Rectangle()
-                        .fill(.set1Blue)
-                        .frame(height: 20)
+                    Divider()
                     
                     // Title
                     Text(groupTitle)
-                        .foregroundColor(.systemBlack)
+                        .foregroundStyle(.systemWhite)
                         .font(.title)
                         .minimumScaleFactor(0.01)
 
@@ -104,9 +105,7 @@ struct AuthorView: View {
                     }
                     
                     // Spacer
-                    Rectangle()
-                        .fill(.set1Blue)
-                        .frame(height: 20)
+                    Divider()
                 }
                 .padding(EdgeInsets(top: 0, leading: 30, bottom: 0, trailing: 30))
             }
@@ -120,27 +119,33 @@ struct AuthorView: View {
                 Text(String(authorViewModel.userInfo?.counts.works ?? 0))
                     .font(.headline)
                     .minimumScaleFactor(0.01)
+                    .foregroundStyle(.systemWhite)
                 Text("Works")
                     .font(.caption)
                     .minimumScaleFactor(0.01)
+                    .foregroundStyle(.systemWhite)
             }
             
             VStack {
                 Text(String(authorViewModel.userInfo?.counts.bookmarks ?? 0))
                     .font(.headline)
                     .minimumScaleFactor(0.01)
+                    .foregroundStyle(.systemWhite)
                 Text("Bookmarks")
                     .font(.caption)
                     .minimumScaleFactor(0.01)
+                    .foregroundStyle(.systemWhite)
             }
             
             VStack {
                 Text(String(authorViewModel.userInfo?.fandoms.count ?? 0))
                     .font(.headline)
                     .minimumScaleFactor(0.01)
+                    .foregroundStyle(.systemWhite)
                 Text("Fandoms")
                     .font(.caption)
                     .minimumScaleFactor(0.01)
+                    .foregroundStyle(.systemWhite)
             }
         }
     }
