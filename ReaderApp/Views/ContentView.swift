@@ -14,7 +14,9 @@ struct ContentView: View {
     var body: some View {
         NavigationStack {
             VStack {
-                FeedView(title: "+Anima (Manga)")
+                FirstTimeView()
+//                HomeView()
+//                FeedView(title: "+Anima (Manga)")
             }
         }
         .accentColor(.set1PinkDark)

@@ -70,8 +70,7 @@ struct AuthorView: View {
                 .foregroundStyle(.systemWhite)
             
             if let joinDate = authorViewModel.userInfo?.profileInfo.joinDate {
-                (Text("Joined")
-                + Text(" \(joinDate)"))
+                Text("Joined\n\(joinDate)")
                     .font(.subheadline)
                     .minimumScaleFactor(0.01)
                     .foregroundStyle(.systemWhite)
