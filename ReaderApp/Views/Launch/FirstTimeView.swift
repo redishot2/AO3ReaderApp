@@ -22,7 +22,7 @@ struct FirstTimeView: View {
                     .font(.largeTitle)
                     .foregroundStyle(.primary)
                 
-                Text("buzzing with stories")
+                Text("abuzz with stories")
                     .font(.title3)
                     .foregroundStyle(.secondary)
             }
