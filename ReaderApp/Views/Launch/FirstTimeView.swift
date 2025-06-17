@@ -20,11 +20,11 @@ struct FirstTimeView: View {
                 
                 Text("Ink Hive")
                     .font(.largeTitle)
-                    .foregroundStyle(.primary)
+                    .foregroundStyle(.black)
                 
                 Text("abuzz with stories")
                     .font(.title3)
-                    .foregroundStyle(.secondary)
+                    .foregroundStyle(.gray)
             }
             .frame(maxWidth: .infinity, maxHeight: 500)
         }
