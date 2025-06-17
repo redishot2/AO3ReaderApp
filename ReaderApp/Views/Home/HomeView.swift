@@ -18,7 +18,8 @@ struct HomeView: View {
                 categoryList()
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
-            .background(.accent)
+            .padding(EdgeInsets(top: 30, leading: 15, bottom: 0, trailing: 15))
+            .background(.divider)
         }
     }
     
@@ -26,22 +27,23 @@ struct HomeView: View {
         VStack(alignment: .leading) {
             Text("Explore Fandoms")
                 .font(.title2)
+                .padding(EdgeInsets(top: 0, leading: 25, bottom: 10, trailing: 5))
             
-            HStack(alignment: .top, spacing: 5) {
-                VStack(alignment: .leading) {
+            let spacing: CGFloat = 15.0
+            HStack(alignment: .top, spacing: spacing) {
+                VStack(alignment: .leading, spacing: spacing) {
                     ForEach(homeViewModel.categories.leftColumn, id: \.self) { category in
                         categoryView(category)
                     }
                 }
                 
-                VStack(alignment: .leading) {
+                VStack(alignment: .leading, spacing: spacing) {
                     ForEach(homeViewModel.categories.rightColumn, id: \.self) { category in
                         categoryView(category)
                     }
                 }
             }
         }
-        .padding(EdgeInsets(top: 30, leading: 15, bottom: 0, trailing: 15))
     }
     
     private func categoryView(_ category: Category) -> some View {
@@ -64,6 +66,7 @@ struct HomeView: View {
             }
             .padding(EdgeInsets(top: 10, leading: 15, bottom: 10, trailing: 5))
             .background(.background)
+            .clipShape(Capsule())
         }
         .buttonStyle(.borderless)
     }
