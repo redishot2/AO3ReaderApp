@@ -20,7 +20,7 @@ struct ProfilePic: View {
                     .accessibilityValue("profile picture")
                     .overlay(
                         Rectangle()
-                            .stroke(.set1PinkDark, lineWidth: 2)
+                            .stroke(.highlight, lineWidth: 2)
                     )
             } placeholder: {
                 noProfilePicView()
@@ -34,7 +34,7 @@ struct ProfilePic: View {
         HStack {
             if coverImage == nil {
                 Rectangle()
-                    .foregroundColor(.systemWhite)
+                    .foregroundColor(.textCustom)
                     .overlay {
                         Image("noProfilePic")
                             .resizable()
@@ -43,11 +43,11 @@ struct ProfilePic: View {
                     }
                     .overlay(
                         Rectangle()
-                            .stroke(.set1PinkDark, lineWidth: 2)
+                            .stroke(.highlight, lineWidth: 2)
                     )
             } else {
                 Rectangle()
-                    .foregroundColor(.set1PinkDark)
+                    .foregroundColor(.backgroundCustom)
             }
         }
     }

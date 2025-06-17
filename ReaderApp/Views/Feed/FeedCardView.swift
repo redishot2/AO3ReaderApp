@@ -16,7 +16,7 @@ struct FeedCardView: View {
             Text(feedCardInfo.title ?? "")
                 .font(.title3)
                 .multilineTextAlignment(.leading)
-                .foregroundStyle(.systemBlack)
+                .foregroundStyle(.textCustom)
                 .padding(EdgeInsets(top: 5, leading: 0, bottom: 0, trailing: 0))
             
             Text("By \(feedCardInfo.displayAuthors())")
@@ -32,7 +32,7 @@ struct FeedCardView: View {
                     Text(fandom)
                         .font(.body)
                         .multilineTextAlignment(.leading)
-                        .foregroundStyle(.set1PinkDark)
+                        .foregroundStyle(.textCustom)
                         .padding(EdgeInsets(top: 0, leading: 0, bottom: 1, trailing: 0))
                 }
             }
@@ -55,7 +55,7 @@ struct FeedCardView: View {
         }
         .frame(maxWidth: .infinity, alignment: .leading)
         .padding(EdgeInsets(top: 20, leading: 20, bottom: 30, trailing: 20))
-        .background(.systemWhite)
+        .background(.backgroundCustom)
         .clipShape(RoundedRectangle(cornerRadius: 20))
     }
     
@@ -66,11 +66,11 @@ struct FeedCardView: View {
                 .minimumScaleFactor(0.01)
                 .bold()
                 .frame(width: 30, height: 30)
-                .background(.set1PinkDark)
+                .background(.backgroundCustom)
                 .cornerRadius(5)
             
             Text(tag.fullText + (additionalText ?? ""))
-                .foregroundStyle(.set1PinkDark)
+                .foregroundStyle(.textCustom)
                 .multilineTextAlignment(.leading)
         }
     }

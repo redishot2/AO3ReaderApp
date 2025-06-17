@@ -43,7 +43,7 @@ struct StyleMod: ViewModifier {
     func body(content: Content) -> some View {
         content
             .padding(EdgeInsets(top: 5, leading: 20, bottom: 5, trailing: 20))
-            .foregroundStyle(isActive ? .systemWhite : .gray)
-            .background(isActive ? .set1Pink : .systemBlack)
+            .foregroundStyle(isActive ? .textCustom : .gray)
+            .background(isActive ? .backgroundCustom : .gray)
     }
 }

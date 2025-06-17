@@ -18,24 +18,30 @@ struct HomeView: View {
                 categoryList()
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
+            .background(.accent)
         }
     }
     
     private func categoryList() -> some View {
-        HStack(alignment: .top, spacing: 5) {
-            VStack(alignment: .leading) {
-                ForEach(homeViewModel.categories.leftColumn, id: \.self) { category in
-                    categoryView(category)
-                }
-            }
+        VStack(alignment: .leading) {
+            Text("Explore Fandoms")
+                .font(.title2)
             
-            VStack(alignment: .leading) {
-                ForEach(homeViewModel.categories.rightColumn, id: \.self) { category in
-                    categoryView(category)
+            HStack(alignment: .top, spacing: 5) {
+                VStack(alignment: .leading) {
+                    ForEach(homeViewModel.categories.leftColumn, id: \.self) { category in
+                        categoryView(category)
+                    }
+                }
+                
+                VStack(alignment: .leading) {
+                    ForEach(homeViewModel.categories.rightColumn, id: \.self) { category in
+                        categoryView(category)
+                    }
                 }
             }
         }
-        .padding(EdgeInsets(top: 0, leading: 15, bottom: 0, trailing: 15))
+        .padding(EdgeInsets(top: 30, leading: 15, bottom: 0, trailing: 15))
     }
     
     private func categoryView(_ category: Category) -> some View {
@@ -43,17 +49,23 @@ struct HomeView: View {
             FeedView(title: category.webName)
         } label: {
             HStack {
-                Image(category.imageName)
-                    .resizable()
-                    .frame(width: 40, height: 40)
+                Image(systemName: category.imageName)
+                    .font(.body)
+                    .tint(.textCustom)
+                    .frame(width: 40)
                 
                 Text(category.displayName)
+                    .lineLimit(1)
+                    .allowsTightening(true)
+                    .font(.body)
+                    .foregroundStyle(.textCustom)
                 
                 Spacer()
             }
-            .padding(EdgeInsets(top: 5, leading: 15, bottom: 5, trailing: 5))
-            .glassEffect()
+            .padding(EdgeInsets(top: 10, leading: 15, bottom: 10, trailing: 5))
+            .background(.background)
         }
+        .buttonStyle(.borderless)
     }
 }
 

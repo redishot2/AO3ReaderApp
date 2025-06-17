@@ -17,7 +17,7 @@ struct NotesView: View {
             .minimumScaleFactor(0.01)
         
         ParagraphListView(items: notes, fontType: .callout)
-            .foregroundColor(.systemBlack)
+            .foregroundColor(.textCustom)
     }
 }
 

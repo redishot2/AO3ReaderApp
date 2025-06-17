@@ -27,7 +27,7 @@ struct ExpandableLinkView: View {
         VStack(alignment: .leading) {
             Text(groupTitle)
                 .font(.title3)
-                .foregroundStyle(.set1PinkDark)
+                .foregroundStyle(.textCustom)
                 .padding(EdgeInsets(top: 0, leading: 0, bottom: 5, trailing: 0))
             
             ForEach(displayLinks, id: \.self) { link in
@@ -36,7 +36,7 @@ struct ExpandableLinkView: View {
                 } label: {
                     Text(link)
                         .multilineTextAlignment(.leading)
-                        .foregroundStyle(.systemBlack)
+                        .foregroundStyle(.textCustom)
                         .underline()
                         .padding(EdgeInsets(top: 0, leading: 0, bottom: 5, trailing: 0))
                 }
@@ -48,7 +48,7 @@ struct ExpandableLinkView: View {
                     isExpanded.toggle()
                 } label: {
                     Text(toggleText)
-                        .foregroundStyle(.set1PinkDark)
+                        .foregroundStyle(.backgroundCustom)
                 }
 
             }

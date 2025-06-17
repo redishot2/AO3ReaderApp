@@ -44,13 +44,13 @@ struct AuthorView: View {
             if authorViewModel.isLoading {
                 ProgressView()
                     .padding(EdgeInsets(top: 50, leading: 0, bottom: 0, trailing: 0))
-                    .tint(.systemWhite)
+                    .tint(.accent)
             } else if authorViewModel.displayError {
                 Text("There was a problem fetching the feed. Please try again later.")
             }
         }
         .frame(maxWidth: .infinity, alignment: .center)
-        .background(.set1PinkDark)
+        .background(.backgroundCustom)
         .task {
             authorViewModel.fetchProfile(for: author)
         }
@@ -67,13 +67,13 @@ struct AuthorView: View {
             Text(authorViewModel.userInfo?.profileInfo.username ?? "Profile")
                 .font(.title)
                 .minimumScaleFactor(0.01)
-                .foregroundStyle(.systemWhite)
+                .foregroundStyle(.textCustom)
             
             if let joinDate = authorViewModel.userInfo?.profileInfo.joinDate {
                 Text("Joined\n\(joinDate)")
                     .font(.subheadline)
                     .minimumScaleFactor(0.01)
-                    .foregroundStyle(.systemWhite)
+                    .foregroundStyle(.textCustom)
             }
             
             Rectangle()
@@ -94,7 +94,7 @@ struct AuthorView: View {
                     
                     // Title
                     Text(groupTitle)
-                        .foregroundStyle(.systemWhite)
+                        .foregroundStyle(.textCustom)
                         .font(.title)
                         .minimumScaleFactor(0.01)
 
@@ -109,7 +109,7 @@ struct AuthorView: View {
                 .padding(EdgeInsets(top: 0, leading: 30, bottom: 0, trailing: 30))
             }
         }
-        .background(.set1PinkDark)
+        .background(.backgroundCustom)
     }
     
     func profileHeader() -> some View {
@@ -118,33 +118,33 @@ struct AuthorView: View {
                 Text(String(authorViewModel.userInfo?.counts.works ?? 0))
                     .font(.headline)
                     .minimumScaleFactor(0.01)
-                    .foregroundStyle(.systemWhite)
+                    .foregroundStyle(.textCustom)
                 Text("Works")
                     .font(.caption)
                     .minimumScaleFactor(0.01)
-                    .foregroundStyle(.systemWhite)
+                    .foregroundStyle(.textCustom)
             }
             
             VStack {
                 Text(String(authorViewModel.userInfo?.counts.bookmarks ?? 0))
                     .font(.headline)
                     .minimumScaleFactor(0.01)
-                    .foregroundStyle(.systemWhite)
+                    .foregroundStyle(.textCustom)
                 Text("Bookmarks")
                     .font(.caption)
                     .minimumScaleFactor(0.01)
-                    .foregroundStyle(.systemWhite)
+                    .foregroundStyle(.textCustom)
             }
             
             VStack {
                 Text(String(authorViewModel.userInfo?.fandoms.count ?? 0))
                     .font(.headline)
                     .minimumScaleFactor(0.01)
-                    .foregroundStyle(.systemWhite)
+                    .foregroundStyle(.textCustom)
                 Text("Fandoms")
                     .font(.caption)
                     .minimumScaleFactor(0.01)
-                    .foregroundStyle(.systemWhite)
+                    .foregroundStyle(.textCustom)
             }
         }
     }

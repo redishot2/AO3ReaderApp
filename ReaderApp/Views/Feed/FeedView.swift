@@ -35,18 +35,18 @@ struct FeedView: View {
             if feedViewModel.isLoading {
                 ProgressView()
                     .padding(EdgeInsets(top: 50, leading: 0, bottom: 0, trailing: 0))
-                    .tint(.systemWhite)
+                    .tint(.textCustom)
             } else if feedViewModel.displayError {
                 Text("There was a problem fetching the feed. Please try again later.")
             } else if feedViewModel.hasScrolledToEnd {
                 Image(systemName: "fireworks")
                     .padding(100)
-                    .foregroundStyle(.systemWhite)
+                    .foregroundStyle(.textCustom)
             }
         }
         .navigationTitle(title)
         .frame(maxWidth: .infinity, alignment: .center)
-        .background(.set1PinkDark)
+        .background(.backgroundCustom)
         .task {
             feedViewModel.fetchFeedInfo(for: title)
         }

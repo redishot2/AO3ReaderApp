@@ -15,7 +15,7 @@ struct WorkView: View {
             if workViewModel.isLoading {
                 ProgressView()
                     .padding(EdgeInsets(top: 50, leading: 0, bottom: 0, trailing: 0))
-                    .tint(.set1PinkDark)
+                    .tint(.highlight)
             } else if workViewModel.displayError {
                 Text("There was a problem fetching this Work. Please try again later.")
             } else if let chapter = workViewModel.curChapter() {
@@ -26,11 +26,11 @@ struct WorkView: View {
                 
                 Rectangle()
                     .frame(width: 1, height: 200)
-                    .foregroundStyle(.systemWhite)
+                    .foregroundStyle(.backgroundCustom)
             }
         }
         .frame(maxWidth: .infinity, alignment: .center)
-        .background(.systemWhite)
+        .background(.background)
         .navigationTitle(workViewModel.curChapter()?.title ?? "")
         .task {
             workViewModel.fetch()
@@ -59,7 +59,7 @@ struct WorkView: View {
                 }
             }, label: {
                 Image(systemName: "list.bullet")
-                    .tint(.set1PinkDark)
+                    .tint(.textCustom)
             }
         )
     }
@@ -69,13 +69,13 @@ struct WorkView: View {
             if workViewModel.hasPreviousChapter {
                 // Previous chapter
                 Text("Previous Chapter")
-                    .foregroundStyle(.set1Pink)
+                    .foregroundStyle(.textCustom)
                     .bold()
                     .font(.title3)
                     .padding(EdgeInsets(top: 2, leading: 20, bottom: 2, trailing: 20))
                     .background(
                         RoundedRectangle(cornerRadius: 5)
-                            .foregroundStyle(.set1PinkDark)
+                            .foregroundStyle(.backgroundCustom)
                     )
                     .onTapGesture {
                         workViewModel.fetchPreviousChapter()
@@ -87,13 +87,13 @@ struct WorkView: View {
             if workViewModel.hasNextChapter {
                 // Next chapter
                 Text("Next Chapter")
-                    .foregroundStyle(.systemWhite)
+                    .foregroundStyle(.textCustom)
                     .bold()
                     .font(.title3)
                     .padding(EdgeInsets(top: 2, leading: 20, bottom: 2, trailing: 20))
                     .background(
                         RoundedRectangle(cornerRadius: 5)
-                            .foregroundStyle(.set1Pink)
+                            .foregroundStyle(.backgroundCustom)
                     )
                     .onTapGesture {
                         workViewModel.fetchNextChapter()

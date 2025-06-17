@@ -2,56 +2,56 @@
     {
         "displayName": "Anime",
         "webName": "Anime & Manga",
-        "imageName": "category-anime"
+        "imageName": "bus.fill"
     },
     {
         "displayName": "Cartoons",
         "webName": "Cartoons & Comics & Graphic Novels",
-        "imageName": "category-comics"
+        "imageName": "pencil.and.scribble"
     },
     {
         "displayName": "Books",
         "webName": "Books & Literature",
-        "imageName": "category-books"
+        "imageName": "book"
     },
     {
         "displayName": "Movies",
         "webName": "Movies",
-        "imageName": "category-movies"
+        "imageName": "movieclapper"
     },
     {
         "displayName": "TV Shows",
         "webName": "TV Shows",
-        "imageName": "category-tv"
+        "imageName": "tv"
     },
     {
         "displayName": "Celebrities",
         "webName": "Celebrities & Real People",
-        "imageName": "category-celebrities"
+        "imageName": "star"
     },
     {
         "displayName": "Music",
         "webName": "Music & Bands",
-        "imageName": "category-music"
+        "imageName": "music.note"
     },
     {
         "displayName": "Games",
         "webName": "Video Games",
-        "imageName": "category-games"
+        "imageName": "gamecontroller"
     },
     {
         "displayName": "Theater",
         "webName": "Theater",
-        "imageName": "category-theater"
+        "imageName": "theatermasks"
     },
     {
         "displayName": "Other",
         "webName": "Other Media",
-        "imageName": "category-media"
+        "imageName": "books.vertical"
     },
     {
         "displayName": "Uncategorized",
         "webName": "Uncategorized Fandoms",
-        "imageName": "category-assorted"
+        "imageName": "questionmark.text.page"
     }
 ]

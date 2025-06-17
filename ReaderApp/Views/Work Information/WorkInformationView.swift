@@ -39,7 +39,7 @@ struct WorkInformationView: View {
                             Spacer(minLength: 150)
                         }
                         .padding(EdgeInsets(top: 20, leading: 30, bottom: 0, trailing: 30))
-                        .background(.systemWhite)
+                        .background(.backgroundCustom)
                     }
                 }
                 
@@ -144,11 +144,11 @@ struct WorkInformationView: View {
                 .minimumScaleFactor(0.01)
                 .bold()
                 .frame(width: 30, height: 30)
-                .background(.set1PinkDark)
+                .background(.backgroundCustom)
                 .cornerRadius(5)
             
             Text(tag.fullText)
-                .foregroundStyle(.set1PinkDark)
+                .foregroundStyle(.textCustom)
                 .multilineTextAlignment(.leading)
         }
     }
@@ -177,12 +177,12 @@ struct WorkInformationView: View {
                 .minimumScaleFactor(0.01)
                 .bold()
                 .frame(width: 30, height: 30)
-                .background(.set1PinkDark)
+                .background(.backgroundCustom)
                 .cornerRadius(5)
             
             Text(statValue + " " + statName)
                 .minimumScaleFactor(0.01)
-                .foregroundStyle(.set1PinkDark)
+                .foregroundStyle(.textCustom)
         }
     }
 }
