@@ -48,7 +48,7 @@ struct HomeView: View {
     
     private func categoryView(_ category: Category) -> some View {
         NavigationLink {
-            FeedView(title: category.webName)
+            CategoriesView(title: category.webName)
         } label: {
             HStack {
                 Image(systemName: category.imageName)
