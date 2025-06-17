@@ -1,0 +1,57 @@
+[
+    {
+        "displayName": "Anime",
+        "webName": "Anime & Manga",
+        "imageName": "category-anime"
+    },
+    {
+        "displayName": "Cartoons",
+        "webName": "Cartoons & Comics & Graphic Novels",
+        "imageName": "category-comics"
+    },
+    {
+        "displayName": "Books",
+        "webName": "Books & Literature",
+        "imageName": "category-books"
+    },
+    {
+        "displayName": "Movies",
+        "webName": "Movies",
+        "imageName": "category-movies"
+    },
+    {
+        "displayName": "TV Shows",
+        "webName": "TV Shows",
+        "imageName": "category-tv"
+    },
+    {
+        "displayName": "Celebrities",
+        "webName": "Celebrities & Real People",
+        "imageName": "category-celebrities"
+    },
+    {
+        "displayName": "Music",
+        "webName": "Music & Bands",
+        "imageName": "category-music"
+    },
+    {
+        "displayName": "Games",
+        "webName": "Video Games",
+        "imageName": "category-games"
+    },
+    {
+        "displayName": "Theater",
+        "webName": "Theater",
+        "imageName": "category-theater"
+    },
+    {
+        "displayName": "Other",
+        "webName": "Other Media",
+        "imageName": "category-media"
+    },
+    {
+        "displayName": "Uncategorized",
+        "webName": "Uncategorized Fandoms",
+        "imageName": "category-assorted"
+    }
+]
