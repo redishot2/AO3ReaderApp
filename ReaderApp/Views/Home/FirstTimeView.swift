@@ -11,6 +11,8 @@ struct FirstTimeView: View {
     @State private var fadedIn = false
     @State private var fadeOut = false
     
+    @Binding var showFirstTimeUser: Bool
+    
     var body: some View {
         VStack {
             VStack {
@@ -39,13 +41,10 @@ struct FirstTimeView: View {
                 withAnimation(.easeInOut(duration: 0.5).delay(0.25)) {
                     fadeOut = true
                 } completion: {
-                    // Done
+                    showFirstTimeUser = false
                 }
             }
         }
     }
 }
 
-#Preview {
-    FirstTimeView()
-}

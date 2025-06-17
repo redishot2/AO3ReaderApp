@@ -8,8 +8,14 @@
 import SwiftUI
 
 struct HomeView: View {
+    @StateObject var homeViewModel = HomeViewModel()
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        if homeViewModel.firstTimeUser {
+            FirstTimeView(showFirstTimeUser: $homeViewModel.firstTimeUser)
+        } else {
+            Text("Second time+")
+        }
     }
 }
 

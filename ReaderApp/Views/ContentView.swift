@@ -14,8 +14,7 @@ struct ContentView: View {
     var body: some View {
         NavigationStack {
             VStack {
-                FirstTimeView()
-//                HomeView()
+                HomeView()
 //                FeedView(title: "+Anima (Manga)")
             }
         }
