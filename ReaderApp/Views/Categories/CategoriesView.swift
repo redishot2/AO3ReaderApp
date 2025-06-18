@@ -12,23 +12,6 @@ struct CategoriesView: View {
     let title: String
     
     @StateObject var categoriesViewModel = CategoriesViewModel()
-    @State private var searchText = ""
-    
-    var searchResults: [FandomGroup] {
-        if searchText.isEmpty {
-            return categoriesViewModel.categories?.sort(by: .alphabetical) ?? []
-        } else {
-            var groups: [FandomGroup] = []
-            let unfiltered = categoriesViewModel.categories?.sort(by: .alphabetical) ?? []
-            for fandoms in unfiltered {
-                let filteredFandoms: [FandomItem] = fandoms.fandoms.filter { $0.name.contains(searchText) }
-                if filteredFandoms.isEmpty { continue }
-                groups.append(FandomGroup(name: fandoms.name, fandoms: filteredFandoms))
-            }
-            
-            return groups
-        }
-    }
     
     var body: some View {
         Group {
@@ -39,10 +22,33 @@ struct CategoriesView: View {
             } else if categoriesViewModel.displayError {
                 Text("There was a problem fetching the feed. Please try again later.")
             } else {
-                listItems()
+                CategoryListView()
+                    .environmentObject(categoriesViewModel)
             }
         }
         .navigationTitle(title)
+        .toolbar {
+            Menu {
+                ForEach(CategoryInfo.SortType.all(), id: \.self) { sortType in
+                    Button {
+                        categoriesViewModel.sortType = sortType
+                    } label: {
+                        HStack {
+                            Text(sortType.rawValue)
+                            
+                            Spacer()
+                            
+                            if sortType == categoriesViewModel.sortType {
+                                Image(systemName: "checkmark")
+                            }
+                        }
+                    }
+                }
+            } label: {
+                Image(systemName: "line.3.horizontal.decrease.circle")
+            }
+
+        }
         .frame(maxWidth: .infinity, alignment: .center)
         .background(.backgroundCustom)
         .task {
@@ -51,35 +57,6 @@ struct CategoriesView: View {
         .onDisappear {
             categoriesViewModel.cancelTasks()
         }
-    }
-    
-    func listItems() -> some View {
-        List {
-            ForEach(searchResults, id: \.self) { fandomGroup in
-                Section(fandomGroup.name) {
-                    ForEach(fandomGroup.fandoms, id: \.self) { fandom in
-                        NavigationLink {
-                            FeedView(title: fandom.name)
-                        } label: {
-                            VStack(alignment: .leading) {
-                                Text(fandom.name)
-                                    .font(.title3)
-                                    .foregroundStyle(.textCustom)
-                                
-                                Text("\(fandom.worksCount) works")
-                                    .font(.body)
-                                    .foregroundStyle(.textCustom)
-                            }
-                        }
-                        .buttonStyle(.plain)
-                        .padding(EdgeInsets(top: 0, leading: 20, bottom: 0, trailing: 0))
-                    }
-                }
-            }
-        }
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .searchable(text: $searchText)
-        .listStyle(PlainListStyle())
     }
 }
 

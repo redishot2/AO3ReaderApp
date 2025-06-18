@@ -17,6 +17,9 @@ import SwiftUI
     @Published var displayError: Bool = false
     @Published var isLoading: Bool = false
     
+    @Published var searchText = ""
+    @Published var sortType: CategoryInfo.SortType = .alphabetical
+    
     func fetchCategory(_ searchTerm: String) {
         isLoading = true
         
