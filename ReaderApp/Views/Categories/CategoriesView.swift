@@ -12,25 +12,26 @@ struct CategoriesView: View {
     let title: String
     
     @StateObject var categoriesViewModel = CategoriesViewModel()
+    @State private var searchText = ""
+    
+    var searchResults: [FandomItem] {
+        if searchText.isEmpty {
+            return categoriesViewModel.categories?.sort(by: .alphabetical) ?? []
+        } else {
+            return categoriesViewModel.categories?.sort(by: .alphabetical).filter { $0.name.contains(searchText) } ?? []
+        }
+    }
     
     var body: some View {
-        ScrollView {
-            LazyVStack {
-                ForEach(categoriesViewModel.categories?.fandoms ?? [], id: \.self) { fandomGrouping in
-                    fandoms(in: fandomGrouping)
-                }
-            }
-            
+        Group {
             if categoriesViewModel.isLoading {
                 ProgressView()
                     .padding(EdgeInsets(top: 50, leading: 0, bottom: 0, trailing: 0))
                     .tint(.textCustom)
             } else if categoriesViewModel.displayError {
                 Text("There was a problem fetching the feed. Please try again later.")
-            } else if categoriesViewModel.hasScrolledToEnd {
-                Image(systemName: "fireworks")
-                    .padding(100)
-                    .foregroundStyle(.textCustom)
+            } else {
+                listItems()
             }
         }
         .navigationTitle(title)
@@ -44,15 +45,24 @@ struct CategoriesView: View {
         }
     }
     
-    func fandoms(in fandomGroup: FandomGroup) -> some View {
-        ForEach(fandomGroup.fandoms, id: \.self) { fandom in
-            NavigationLink {
-                FeedView(title: fandom.name)
-            } label: {
-                Text(fandom.name)
+    func listItems() -> some View {
+        List {
+            ForEach(searchResults, id: \.self) { fandom in
+                VStack {
+                    NavigationLink {
+                        FeedView(title: fandom.name)
+                    } label: {
+                        Text(fandom.name)
+                        
+                        Text("\(fandom.worksCount)")
+                    }
+                    .buttonStyle(.plain)
+                }
             }
-            .buttonStyle(.plain)
         }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .searchable(text: $searchText)
+        .listStyle(PlainListStyle())
     }
 }
 

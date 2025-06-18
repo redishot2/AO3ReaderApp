@@ -16,7 +16,6 @@ import SwiftUI
     @Published var categories: CategoryInfo? = nil
     @Published var displayError: Bool = false
     @Published var isLoading: Bool = false
-    @Published var hasScrolledToEnd: Bool = false
     
     func fetchCategory(_ searchTerm: String) {
         isLoading = true
@@ -41,7 +40,6 @@ import SwiftUI
     func cancelTasks() {
         isLoading = false
         displayError = false
-        hasScrolledToEnd = false
         tasks.forEach({ $0.cancel() })
         tasks = []
     }
