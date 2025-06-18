@@ -69,13 +69,13 @@ struct WorkView: View {
             if workViewModel.hasPreviousChapter {
                 // Previous chapter
                 Text("Previous Chapter")
-                    .foregroundStyle(.textCustom)
+                    .foregroundStyle(.white)
                     .bold()
                     .font(.title3)
                     .padding(EdgeInsets(top: 2, leading: 20, bottom: 2, trailing: 20))
                     .background(
                         RoundedRectangle(cornerRadius: 5)
-                            .foregroundStyle(.backgroundCustom)
+                            .foregroundStyle(.highlight)
                     )
                     .onTapGesture {
                         workViewModel.fetchPreviousChapter()
@@ -87,13 +87,13 @@ struct WorkView: View {
             if workViewModel.hasNextChapter {
                 // Next chapter
                 Text("Next Chapter")
-                    .foregroundStyle(.textCustom)
+                    .foregroundStyle(.white)
                     .bold()
                     .font(.title3)
                     .padding(EdgeInsets(top: 2, leading: 20, bottom: 2, trailing: 20))
                     .background(
                         RoundedRectangle(cornerRadius: 5)
-                            .foregroundStyle(.backgroundCustom)
+                            .foregroundStyle(.highlight)
                     )
                     .onTapGesture {
                         workViewModel.fetchNextChapter()

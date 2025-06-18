@@ -46,7 +46,7 @@ struct FeedView: View {
         }
         .navigationTitle(title)
         .frame(maxWidth: .infinity, alignment: .center)
-        .background(.backgroundCustom)
+        .background(.divider)
         .task {
             feedViewModel.fetchFeedInfo(for: title)
         }

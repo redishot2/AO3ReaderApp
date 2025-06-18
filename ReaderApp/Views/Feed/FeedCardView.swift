@@ -66,7 +66,7 @@ struct FeedCardView: View {
                 .minimumScaleFactor(0.01)
                 .bold()
                 .frame(width: 30, height: 30)
-                .background(.backgroundCustom)
+                .background(.highlight)
                 .cornerRadius(5)
             
             Text(tag.fullText + (additionalText ?? ""))
