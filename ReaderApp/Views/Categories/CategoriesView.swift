@@ -48,16 +48,20 @@ struct CategoriesView: View {
     func listItems() -> some View {
         List {
             ForEach(searchResults, id: \.self) { fandom in
-                VStack {
-                    NavigationLink {
-                        FeedView(title: fandom.name)
-                    } label: {
+                NavigationLink {
+                    FeedView(title: fandom.name)
+                } label: {
+                    VStack(alignment: .leading) {
                         Text(fandom.name)
+                            .font(.title3)
+                            .foregroundStyle(.textCustom)
                         
-                        Text("\(fandom.worksCount)")
+                        Text("\(fandom.worksCount) works")
+                            .font(.body)
+                            .foregroundStyle(.textCustom)
                     }
-                    .buttonStyle(.plain)
                 }
+                .buttonStyle(.plain)
             }
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
