@@ -5,10 +5,14 @@
 //  Created by Natasha Martinez on 5/5/25.
 //
 
+import CoreData
 import SwiftUI
 
 struct WorkView: View {
     @EnvironmentObject var workViewModel: WorkViewModel
+    
+    @Environment(\.managedObjectContext) var managedObjectContext
+    @FetchRequest(sortDescriptors: []) var history: FetchedResults<WorkHistory>
     
     var body: some View {
         ScrollView {
@@ -52,6 +56,7 @@ struct WorkView: View {
                 ForEach(Array(chapters.enumerated()), id: \.offset) { index, chapterName in
                     Button {
                         workViewModel.fetch(chapterIndex: index + 1)
+                        saveReadingProgress(curChapter: index + 1)
                     } label: {
                         Text(chapterName)
                             .minimumScaleFactor(0.01)
@@ -101,6 +106,19 @@ struct WorkView: View {
             }
         }
         .padding(EdgeInsets(top: 0, leading: 10, bottom: 0, trailing: 10))
+    }
+    
+    func saveReadingProgress(curChapter: Int) {
+        if let history = history.first(where: { $0.workID == workViewModel.workID }) {
+            history.curChapter = Int16(curChapter)
+        } else {
+            let history = WorkHistory(context: managedObjectContext)
+            history.workID = workViewModel.workID
+            history.curChapter = Int16(curChapter)
+            history.title = workViewModel.work?.aboutInfo?.title
+        }
+        
+        try? managedObjectContext.save()
     }
 }
 

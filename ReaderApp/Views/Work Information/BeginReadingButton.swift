@@ -9,13 +9,14 @@ import SwiftUI
 
 struct BeginReadingButton: View {
     let workID: String
+    let curChapter: Int
     
     var body: some View {
         NavigationLink {
             WorkView()
-                .environmentObject(WorkViewModel(workID: workID, curChapter: 1))
+                .environmentObject(WorkViewModel(workID: workID, curChapter: curChapter > 0 ? curChapter : 1))
         } label: {
-            Text("Read Now")
+            Text(curChapter == 0 ? "Read Now" : "Continue Chapter \(curChapter)")
                 .foregroundStyle(.white)
                 .bold()
                 .font(.title3)
@@ -30,5 +31,5 @@ struct BeginReadingButton: View {
 }
 
 #Preview {
-    BeginReadingButton(workID: "")
+    BeginReadingButton(workID: "", curChapter: 0)
 }

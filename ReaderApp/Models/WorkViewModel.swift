@@ -15,7 +15,7 @@ import SwiftUI
     @Published private(set) var curChapterIndex: Int
     
     /// Unique ID for work
-    private var workID: String
+    private(set) var workID: String
     
     private var tasks: [Task<Void, Never>] = []
     

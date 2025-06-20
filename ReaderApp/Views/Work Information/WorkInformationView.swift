@@ -5,10 +5,13 @@
 //  Created by Natasha Martinez on 3/3/25.
 //
 
-import SwiftUI
 import AO3Scraper
+import CoreData
+import SwiftUI
 
 struct WorkInformationView: View {
+    @FetchRequest(sortDescriptors: []) var history: FetchedResults<WorkHistory>
+    
     @State var feedCardInfo: FeedCardInfo
     
     enum Constants {
@@ -43,7 +46,8 @@ struct WorkInformationView: View {
                     }
                 }
                 
-                BeginReadingButton(workID: feedCardInfo.workID)
+                let curChapter = Int(history.first(where: { $0.workID == feedCardInfo.workID })?.curChapter ?? 0)
+                BeginReadingButton(workID: feedCardInfo.workID, curChapter: curChapter)
                     .padding(EdgeInsets(top: 0, leading: 0, bottom: 20, trailing: 0))
             }
         }
